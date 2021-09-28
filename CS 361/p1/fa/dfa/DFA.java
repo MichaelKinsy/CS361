@@ -1,25 +1,22 @@
 package fa.dfa;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import com.google.common.collect.HashBasedTable;
-import com.google.common.collect.Table;
-
-
 import fa.State;
 public class DFA implements DFAInterface {
     private DFAState q0;
-    private Set<DFAState> q;
-    private Set<DFAState> f;
-    private Set<DFAState> sigma;
+    private HashSet<DFAState> q;
+    private HashSet<DFAState> f;
+    private HashMap<DFAState, HashMap<Character, DFAState>> sigma;
 
     public DFA(){
         this.q = new HashSet<DFAState>();
         this.q0 = null;
         this.f =  new HashSet<DFAState>();
-        this.sigma =  new HashSet<DFAState>();
+        this.sigma =  new HashMap<DFAState,HashMap<Character,DFAState>>();
     }
 
     @Override
@@ -39,8 +36,9 @@ public class DFA implements DFAInterface {
 
     @Override
     public void addTransition(String fromState, char onSymb, String toState) {
-        // TODO Auto-generated method stub
-        
+        HashMap<Character,DFAState> transition = new HashMap<Character,DFAState>();
+        transition.put(onSymb, new DFAState(toState));
+        this.sigma.put(new DFAState(fromState),transition);
     }
 
     @Override
@@ -61,7 +59,7 @@ public class DFA implements DFAInterface {
 
     @Override
     public Set<Character> getABC() {
-        return sigma;
+        return null;
     }
 
     @Override
