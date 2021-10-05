@@ -42,13 +42,20 @@ public class DFA implements DFAInterface {
     }
 
     @Override
-    public Set<? extends State> getStates() {
-        // TODO Auto-generated method stub
-        return null;
+    public Set<DFAState> getStates() {
+        HashSet<DFAState> states = new HashSet<DFAState>();
+        states.add(this.q0);
+        for (DFAState state : this.q){
+            states.add(state);
+        }
+        for (DFAState state : this.f){
+            states.add(state);
+        }
+        return states;
     }
 
     @Override
-    public Set<? extends State> getFinalStates() {
+    public Set<DFAState> getFinalStates() {
         return f;
     }
 
@@ -59,13 +66,16 @@ public class DFA implements DFAInterface {
 
     @Override
     public Set<Character> getABC() {
-        return null;
+        return sigma;
     }
 
     @Override
     public boolean accepts(String s) {
-        // TODO Auto-generated method stub
-        return false;
+        boolean accept = true;
+        for (char sym: s.toCharArray()){
+            
+        }
+        return accept;
     }
 
     @Override
