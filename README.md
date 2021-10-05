@@ -1,1 +1,1 @@
-# CS361-p1
+# CS361 Projects
