@@ -16,22 +16,8 @@ This java program models a deterministic finite automaton using packages, java c
    - To use run: java fa.dfa.DFADriver <path to input file>
 
 ## Discussion
-
-Discuss the issues and successes you encountered during programming
-(development). Here are some questions to get you started. You don't
-have to answer all of them in order - they are a guideline to get you
-thinking.
-  * What problems did you have? What went well?
-  * What process did you go through to create the program?
-  * What did you have to research and learn on your own?
-  * What kinds of errors did you get? How did you fix them?
-  * What parts of the project did you find challenging?
-  * Is there anything that finally "clicked" for you in the process 
-  of working on this project?
-  * Is there anything that you would change about the project?
-  * Can you apply what you learned in this project to future projects?
-
- This project was relatively straight forward to implement with most of the critical concepts being in setting up my DFAState properly and the data structures that stored these objects in my actual dfa class. 
+ This project was relatively straight forward to implement with most of the critical concepts being in setting up my DFAState properly and the data structures that stored these objects in my actual dfa class. The only problem I really had to overcome with this project was having to figure out how to store my states and compare them to other states so that I can retrieve them from my different structures such as delta for example because I had the a bug in regards to I couldn't retrieve anything from my structures when I passed my keys to the structures get functions because I found out that there was an issue with the hashcode generation and equals funciton for my hashmaps and sets so I simply did some research and just needed to override the hashcode generation and equals funciton. Then this solved my errors in regards to not being able to actually get the proper output. Then the only other hard part of this project was implementing the toString function properly which required me to do some interesting string formatting of which I think if I were to redo this project I would definitely redo this function to be more simple and efficient.
+ 
 ## Testing
 
 To test this project I simply used all of the provided testing files and compared my own programs output to the output expected within the project specifications which was correct after my final implementation.
