@@ -13,7 +13,7 @@ This java program models a deterministic finite automaton using packages, java c
 * Compilation
    - To compile run: javac fa/dfa/DFADriver.java frotm the top directory of this project
 * Using
-   - To use run: java fa.dfa.DFADriver 'path to input file'
+   - To use run: java fa.dfa.DFADriver [path to input file]
 
 ## Discussion
  This project was relatively straight forward to implement with most of the critical concepts being in setting up my DFAState properly and the data structures that stored these objects in my actual dfa class. The only problem I really had to overcome with this project was having to figure out how to store my states and compare them to other states so that I can retrieve them from my different structures such as delta for example because I had the a bug in regards to I couldn't retrieve anything from my structures when I passed my keys to the structures get functions because I found out that there was an issue with the hashcode generation and equals funciton for my hashmaps and sets so I simply did some research and just needed to override the hashcode generation and equals funciton. Then this solved my errors in regards to not being able to actually get the proper output. Then the only other hard part of this project was implementing the toString function properly which required me to do some interesting string formatting of which I think if I were to redo this project I would definitely redo this function to be more simple and efficient.
