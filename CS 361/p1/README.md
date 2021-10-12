@@ -1,22 +1,19 @@
-# Project X: Project Name
+# Project 1: Deterministic Finite Automata
 
-* Author: Your Name
-* Class: CS121 Section X
-* Semester: Spring 2016
+* Author: Michael Kinsy
+* Class: CS361 Section 2 
+* Semester: Fall 2021
 
 ## Overview
 
-Concisely explain what the program does. If this exceeds a couple of
-sentences, you're going too far. Generally you should be pulling this
-right from the project specification. I don't want you to just cut and
-paste, but paraphrase what is stated in the project specification.
+This java program models a deterministic finite automaton using packages, java collections, interfaces, and abstract classes.
 
 ## Compiling and Using
 
-This section should tell the user how to compile your code.  It is
-also appropriate to instruct the user how to use your code. Does your
-program require user input? If so, what does your user need to know
-about it to use it as quickly as possible?
+* Compilation
+   - To compile run: javac fa/dfa/DFADriver.java frotm the top directory of this project
+* Using
+   - To use run: java fa.dfa.DFADriver <path to input file>
 
 ## Discussion
 
@@ -34,19 +31,10 @@ thinking.
   * Is there anything that you would change about the project?
   * Can you apply what you learned in this project to future projects?
 
+ This project was relatively straight forward to implement with most of the critical concepts being in setting up my DFAState properly and the data structures that stored these objects in my actual dfa class. 
 ## Testing
 
-In this section, tell us how you tested your project.
-
-You are expected to test your projects before submitting them for
-final review. Pretend that your instructor is your manager or 
-customer at work. How would you ensure that you are delivering a 
-working solution to their requirements?
-
-## Extra Credit
-
-If the project had opportunities for extra credit that you attempted,
-be sure to call it out so the grader does not overlook it.
+To test this project I simply used all of the provided testing files and compared my own programs output to the output expected within the project specifications which was correct after my final implementation.
 
 ## Sources used
 
