@@ -1,7 +1,9 @@
 package fa.nfa;
 
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Set;
 import fa.dfa.DFA;
 
@@ -15,8 +17,9 @@ public class NFA implements NFAInterface {
     private Set<Character> sigma;
 
     public NFA(){
-        this.Q = new HashSet<NFAState>();
+        this.Q = new LinkedHashSet<NFAState>();
         this.sigma = new HashSet<Character>();
+        this.start = null;
     }
 
     @Override
@@ -25,8 +28,6 @@ public class NFA implements NFAInterface {
         if(start == null){
             start = new NFAState(name);
             Q.add(start);
-        } else {
-            System.out.println("WARNING: A state with name " + name + " already exists in the NFA");
         }
     }
 
@@ -81,10 +82,10 @@ public class NFA implements NFAInterface {
         for(NFAState s : Q){
             if(s.getName().equals(name)){
                 state = s;
-                break;
+                return state;
             }
         }
-        return state;
+        return null;
     }
 	
 	@Override
@@ -116,33 +117,38 @@ public class NFA implements NFAInterface {
 	@Override
 	public DFA getDFA(){
         DFA ret = new DFA();
-        LinkedList<HashSet<NFAState>> queue = new LinkedList<>();
-        HashSet<NFAState> tmp = new HashSet<NFAState>();
+        Queue<Set<NFAState>> queue = new LinkedList<Set<NFAState>>();
         Set<Set<NFAState>> visited = new HashSet<Set<NFAState>>();
-        
-        //Add our start state as the new start state to dfa and already visited in search
-        tmp.add(start);
-        visited.add(tmp);
-        ret.addStartState(tmp.toString());
-        queue.add(tmp);
+        // do our intial search
+        queue.add(eClosure(start));
+		String name = eClosure(start).toString();
+		ret.addStartState(name);
+		if (isFinal(eClosure(start))) {
+			ret.addFinalState(name);
+        }
+		visited.add(eClosure(start));
 
         //traverse the nfa and the queue
         while (queue.peek() != null) {
             // retrieve the set of states for first element in queue
-            HashSet<NFAState> states = queue.poll();
+            Set<NFAState> states = queue.poll();
             for (Character symbol : sigma){
 
                 // add all elosures and states to a new transition for our dfa
                 Set<NFAState> tran = new HashSet<NFAState>();
                 for (NFAState state : states){
-                    tran.addAll(getToState(state,symbol));
+                    Set<NFAState> stateTran = state.getTo(symbol.charValue());
+                    for (NFAState state2 : stateTran){
+                        tran.addAll(eClosure(state2));
+                    }
+                    
                 }
                 for(NFAState state : tran){
                     tran.addAll(eClosure(state));
                 }
                 
                 // if we have not see this tranisiton discover wether it is final or not and add it to our dfa
-                if(visited.contains(tran) == false){
+                if(visited.contains(tran) == false && queue.contains(tran) == false){
                     boolean fState = false;
                     for (NFAState state : tran){
                         if (state.isFinal()){
@@ -190,5 +196,19 @@ public class NFA implements NFAInterface {
         return visited;
         
     }
+
+    /**
+     * if states set contains final state
+     * @param s
+     * @return boolean
+     */
+    private boolean isFinal(Set<NFAState> s) {
+		for (NFAState nfaState : s) {
+			if (nfaState.isFinal()) {
+				return true;
+            }    
+		}
+		return false;
+	}
 
 }

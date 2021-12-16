@@ -13,7 +13,7 @@ import fa.State;
 public class NFAState extends State{
 
     private boolean isFinal;
-    private HashMap<Character,LinkedHashSet<NFAState>> delta;
+    private HashMap<Character, Set<NFAState>> delta;
     /**
      * 
      * @param name
@@ -38,8 +38,22 @@ public class NFAState extends State{
      */
     public void initDefault(String name){
          this.name = name;
-         delta =new HashMap<Character, LinkedHashSet<NFAState>>();
+         delta =new HashMap<>();
     }
+
+    /**
+     * Sets a no-final state to a final state.
+     */
+    public void setFinal() {
+        this.isFinal = true;
+      }
+
+    /**
+     * Sets a final state to a non-final state.
+     */
+    public void setNonFinal() {
+        this.isFinal = false;
+      }
 
     /**
      * @return boolean indicating final state
@@ -52,10 +66,14 @@ public class NFAState extends State{
      * @param toState
      */
     public void addTransition(char onSymb, NFAState toState){
-        if (delta.containsKey(onSymb) == false){
-            delta.put(onSymb, new LinkedHashSet<NFAState>());
+        if (delta.containsKey(Character.valueOf(onSymb)) == false){
+            Set<NFAState> tran = new LinkedHashSet<>();
+            delta.put(Character.valueOf(onSymb), tran);
+            tran.add(toState);
+        }else{
+            Set<NFAState> tran = delta.get(Character.valueOf(onSymb));
+            tran.add(toState);
         }
-        delta.get(onSymb).add(toState);
     }
 
     /**
@@ -64,7 +82,7 @@ public class NFAState extends State{
      * @return
      */
     public Set<NFAState> getTo(char symb){
-        LinkedHashSet<NFAState> ret = this.delta.get(symb);
+        Set<NFAState> ret = this.delta.get(Character.valueOf(symb));
         if(ret == null){
             return new LinkedHashSet<NFAState>();
         }
